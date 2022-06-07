@@ -2,11 +2,13 @@ html {
   
 }
 body {
-    background-color: black;
+    background-color: rgb(13 13 13)
+    
 }
 
+
 @media (min-width: 768px) {
-  html {
+    html {
     
   }
 }
@@ -24,11 +26,64 @@ body {
     font-size: 125px;
     font-family: 'Shrikhand', cursive;
     color: #F57575;
+    display: inline-block;
 }
+
 
 p {
     font-family: 'Cabin', sans-serif;
     font-size: 25px;
     color: whitesmoke;
-
+    
 }
+.fadeaway {
+    color: rgb(13 13 13);
+    display: inline-block;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+.fadeaway:hover {
+    color: whitesmoke;
+    opacity: 1;
+}
+.height {
+    height: 100vh;
+}
+
+.form {
+    position: relative;
+}
+
+    .form .fa-search {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: #9ca3af;
+    }
+
+    .form span {
+        position: absolute;
+        right: 17px;
+        top: 13px;
+        padding: 2px;
+        border-left: 1px solid #d1d5db;
+    }
+
+.left-pan {
+    padding-left: 7px;
+}
+
+    .left-pan i {
+        padding-left: 10px;
+    }
+
+.form-input {
+    height: 55px;
+    text-indent: 33px;
+    border-radius: 10px;
+}
+
+ .form-input:focus {
+        box-shadow: none;
+        border: none;
+ }
