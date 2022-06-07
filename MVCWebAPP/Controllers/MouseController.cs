@@ -2,7 +2,7 @@
 
 namespace MVCWebAPP.Controllers
 {
-    public class HelloWorldController : Controller
+    public class MouseController : Controller
     {
         public IActionResult Index()
         {

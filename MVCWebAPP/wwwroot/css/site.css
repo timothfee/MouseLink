@@ -21,13 +21,14 @@ body {
 }
 
 .display-4 {
-   font-size: 125px;
-   font-family:'Permanent Marker', cursive;
-   color: beige;
+    font-size: 125px;
+    font-family: 'Shrikhand', cursive;
+    color: #F57575;
 }
 
 p {
     font-family: 'Cabin', sans-serif;
     font-size: 25px;
+    color: whitesmoke;
 
 }
