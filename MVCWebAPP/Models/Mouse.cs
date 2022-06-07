@@ -1,4 +1,6 @@
-﻿namespace MVCWebAPP.Models
+﻿using System.ComponentModel;
+
+namespace MVCWebAPP.Models
 {
     public class Mouse
     {
@@ -10,6 +12,7 @@
 
         public int Weight { get; set; }
 
+        [DisplayName("Wireless")]
         public bool IsWireless { get; set; }
 
         public int? Rank { get; set; }
