@@ -1,13 +1,39 @@
-﻿@{
+﻿@model MVCWebAPP.Models.MouseSearchViewModel
+@{
     ViewData["Title"] = "MouseLink";
 }
 <div class="text-center">
     <h1 class="display-4">Welcome to MouseLink</h1>
     <p class="fadeaway">Link with your final mouse.</p>
- <div class="form">
-                  <i class="fa fa-search"></i>
-                  <input type="text" class="form-control form-input" placeholder="Find your mouse...">
-                  
-    
-   
 </div>
+<div class="row" >
+    <div class="col-md-4">
+        <form asp-action="Index" asp-controller="Mice" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Shape" class="control-label"></label>
+                <input asp-for="Shape" class="form-control" />
+                <span asp-validation-for="Shape" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Weight" class="control-label"></label>
+                <input asp-for="Weight" class="form-control" />
+                <span asp-validation-for="Weight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                    <label asp-for="IsWireless" class="control-label">Wireless</label>
+                    <select class="form-control" asp-for="IsWireless"><option value=""></option><option value="true">Yes</option><option value="false">No</option></select> 
+            </div>
+            <div class="form-group">
+                <label asp-for="Size" class="control-label"></label>
+                <select asp-for="Size" class="form-control" asp-items="Html.GetEnumSelectList<MouseSize>()"><option value="">Select Size</option></select>
+                <span asp-validation-for="Size" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+            
+  

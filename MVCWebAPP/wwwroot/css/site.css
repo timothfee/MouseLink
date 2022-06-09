@@ -87,3 +87,7 @@ p {
         box-shadow: none;
         border: none;
  }
+ /*Color Change*/
+main {
+    color: whitesmoke;
+}

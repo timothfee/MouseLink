@@ -20,10 +20,16 @@ namespace MVCWebAPP.Controllers
         }
 
         // GET: Mice
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(MouseSearchViewModel model)
         {
+            IQueryable<Mouse> mice = _context.Mice;
+            if (model.IsWireless != null)
+            {
+                mice = mice.Where(m => m.IsWireless == model.IsWireless);
+            }
+            mice = mice.OrderBy(m => m.Rank);
               return _context.Mice != null ? 
-                          View(await _context.Mice.ToListAsync()) :
+                          View(await mice.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Mice'  is null.");
         }
 
