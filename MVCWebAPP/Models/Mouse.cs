@@ -17,7 +17,7 @@ namespace MVCWebAPP.Models
 
         public int? Rank { get; set; }
 
-        public string Size { get; set; }
+        public MouseSize Size { get; set; }
 
         public string? URL { get; set; }
 
