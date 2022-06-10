@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<MVCWebAPP.Models.Mouse>
 
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Results</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table" style="color: whitesmoke;">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Rank)
+            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -25,20 +28,19 @@
                 @Html.DisplayNameFor(model => model.IsWireless)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Rank)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Size)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.URL)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+             <td>
+                @Html.DisplayFor(modelItem => item.Rank)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -46,24 +48,16 @@
                 @Html.DisplayFor(modelItem => item.Shape)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Weight)
+                @Html.DisplayFor(modelItem => item.Weight)g
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsWireless)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rank)
+                @if(item.IsWireless == true){<div>Yes</div>} else{<div>No</div>}
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Size)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.URL)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @if(item.URL == null){<div>Unavailable</div>} else{<div>@item.URL</div>}
             </td>
         </tr>
 }
