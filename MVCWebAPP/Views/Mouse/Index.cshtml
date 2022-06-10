@@ -7,9 +7,97 @@
     <p>The list of the current best gaming mice.</p>
     </div>
 
-    
+<div class="row">
+    <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+    <table id="datatablesSimple" class="table">
+
+                                    <thead>
+
+                                        <tr>
+
+                                            <th>Rank</th>
+
+                                            <th>Name</th>
+
+                                            <th>Shape</th>
+
+                                            <th>Weight</th>
+
+                                            <th>Wirless</th>
+
+                                            <th>Size</th>
+
+                                            <th>URL</th>
+
+                                        </tr>
+
+                                    </thead>
+
+                                    <tfoot>
+
+                                        <tr>
+                                            <th>Rank</th>
+
+                                            <th>Name</th>
+
+                                            <th>Shape</th>
+
+                                            <th>Weight</th>
+
+                                            <th>Wirless</th>
+
+                                            <th>Size</th>
+
+                                            <th>URL</th>
+
+                                        </tr>
+
+                                    </tfoot>
+
+                                    <tbody>
+
+                                        @foreach (var item in Model){
+
+                                        <tr>
+
+                                            <td>@Html.DisplayFor(modelItem => item.Rank)</td>
+
+                                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+
+                                            <td>@Html.DisplayFor(modelItem => item.Shape)</td>
+
+                                            <td>@Html.DisplayFor(modelItem => item.Weight)</td>
+
+                                            <td>@Html.DisplayFor(modelItem => item.IsWireless)</td>
+
+                                            <td>@Html.DisplayFor(modelItem => item.Size)</td>
+
+                                            <td>@Html.DisplayFor(modelItem => item.URL)</td>
+
+                                            <td>
+
+                                                @*<a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="edit"></i></a>
+
+                                                <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></a> *@
+
+                                            </td>
+
+                                        </tr>}
+
+                                    </tbody>
+
+                                </table>  
+    </div>
+
+</div>
+</div>
+
   
-<table class="table" style="color: whitesmoke;">
+
+  
+@*<table class="table" style="color: whitesmoke;">
     <thead>
         <tr>
             <th>
@@ -63,4 +151,9 @@
         </tr>
 }
     </tbody>
-</table>
+</table>*@
+@section Scripts
+    {
+        <script src=https://cdn.jsdelivr.net/npm/simple-datatables@latest crossorigin="anonymous"></script>
+    <script src="~/Scripts/datatables/datatables-simple-demo.js"></script>
+    }

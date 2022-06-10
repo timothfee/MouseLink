@@ -7,30 +7,29 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCWebAPP.Data;
 using MVCWebAPP.Models;
+using MVCWebAPP.Services.Interfaces;
 
 namespace MVCWebAPP.Controllers
 {
     public class MiceController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMouseService _mouse;
 
-        public MiceController(ApplicationDbContext context)
+
+        public MiceController(ApplicationDbContext context, IMouseService mouse)
         {
             _context = context;
+            _mouse = mouse;
         }
 
         // GET: Mice
         public async Task<IActionResult> Index(MouseSearchViewModel model)
         {
-            IQueryable<Mouse> mice = _context.Mice;
-            if (model.IsWireless != null)
-            {
-                mice = mice.Where(m => m.IsWireless == model.IsWireless);
-            }
-            mice = mice.OrderBy(m => m.Rank);
-              return _context.Mice != null ? 
-                          View(await mice.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Mice'  is null.");
+            
+            List<Mouse> mice = await _mouse.GetMiceByPreference(model);
+
+            return View(mice);
         }
 
         // GET: Mice/Details/5
