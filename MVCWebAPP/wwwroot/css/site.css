@@ -28,6 +28,10 @@ body {
     color: #F57575;
     display: inline-block;
 }
+.form-group 
+{
+    font-family: 'Cabin';
+}
 
 
 p {
@@ -90,4 +94,24 @@ p {
  /*Color Change*/
 main {
     color: whitesmoke;
+}
+.home-row
+{
+margin-left: 30%
+}
+ul
+{
+margin-left: 30%;
+}
+.btn-primary {
+    margin-top: 10%;
+    margin-left: 35%;
+    background-color: #F57575;
+    border-color: #F57575;
+}
+.btn-primary:hover 
+{
+    color: #F57575;
+    background-color: whitesmoke;
+    border-color: whitesmoke;
 }
