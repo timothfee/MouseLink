@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MVCWebAPP.Models;
 using System.Diagnostics;
 
@@ -15,6 +16,11 @@ namespace MVCWebAPP.Controllers
 
         public IActionResult Index()
         {
+            List<string> shape = new List<string>();
+            shape.Add("Any Shape");
+            shape.Add("Symmetrical");
+            shape.Add("Ergonomic");
+            ViewData["Shape"] = new SelectList(shape);
             return View();
         }
 

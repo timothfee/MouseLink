@@ -31,7 +31,7 @@
                 @Html.DisplayNameFor(model => model.Size)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.URL)
+                Purchase Link
             </th>
         </tr>
     </thead>
@@ -51,13 +51,27 @@
                 @Html.DisplayFor(modelItem => item.Weight)g
             </td>
             <td>
-                @if(item.IsWireless == true){<div>Yes</div>} else{<div>No</div>}
+                @if(item.IsWireless == true)
+                {
+                    <div>Yes</div>
+                } 
+                else
+                {
+                    <div>No</div>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Size)
             </td>
             <td>
-                @if(item.URL == null){<div>Unavailable</div>} else{<div>@item.URL</div>}
+                @if(string.IsNullOrWhiteSpace(item.URL))
+                {
+                    @:Unavailable
+                } 
+                else
+                {
+                    <a href="@item.URL" target="_blank">Link</a>
+                }
             </td>
         </tr>
 }

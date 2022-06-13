@@ -60,7 +60,14 @@
                 @Html.DisplayFor(modelItem => item.Size)
             </td>
             <td>
-                @if(item.URL == null){<div>Unavailable</div>} else{<div>@item.URL</div>}
+                  @if(string.IsNullOrWhiteSpace(item.URL))
+                {
+                    @:Unavailable
+                } 
+                else
+                {
+                    <a href="@item.URL" target="_blank">Link</a>
+                }
             </td>
         </tr>
 }

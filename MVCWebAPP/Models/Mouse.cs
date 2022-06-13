@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
 
 namespace MVCWebAPP.Models
 {
@@ -20,6 +21,7 @@ namespace MVCWebAPP.Models
         public MouseSize Size { get; set; }
 
         public string? URL { get; set; }
+        public List<MouseUser>? userVote { get; set; }
 
     }
 }
