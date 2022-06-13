@@ -25,12 +25,13 @@ body {
 .display-4 {
     font-size: 125px;
     font-family: 'Shrikhand', cursive;
-    color: #F57575;
+    color: rgb(119, 138, 191);
     display: inline-block;
 }
 .form-group 
 {
     font-family: 'Cabin';
+   
 }
 
 
@@ -91,13 +92,12 @@ p {
         box-shadow: none;
         border: none;
  }
- /*Color Change*/
 main {
     color: whitesmoke;
 }
 .home-row
 {
-margin-left: 30%
+margin-left: 40%
 }
 ul
 {
@@ -106,12 +106,20 @@ margin-left: 30%;
 .btn-primary {
     margin-top: 10%;
     margin-left: 35%;
-    background-color: #F57575;
-    border-color: #F57575;
+    color: whitesmoke;
+    background-color: rgb(119, 138, 191);
 }
-.btn-primary:hover 
+    .btn-primary:hover {
+        color: rgb(119, 138, 191);
+        background-color: whitesmoke;
+        border-color: whitesmoke;
+    }
+.navbar
 {
-    color: #F57575;
-    background-color: whitesmoke;
-    border-color: whitesmoke;
+    background-color: rgb(13,13,13);
+    color:whitesmoke;
+}
+.nav-item:hover 
+{
+    color: rgb(13,13,13);
 }
