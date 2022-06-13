@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,21 +17,64 @@ namespace MVCWebAPP.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMouseService _mouse;
+        private readonly UserManager<MouseUser> _userManager;
 
 
-        public MiceController(ApplicationDbContext context, IMouseService mouse)
+        public MiceController(ApplicationDbContext context, IMouseService mouse, UserManager<MouseUser> userManager)
         {
             _context = context;
             _mouse = mouse;
+            _userManager = userManager;
         }
 
         // GET: Mice
         public async Task<IActionResult> Index(MouseSearchViewModel model)
         {
-            
+            if (model.Shape == "Any Shape")
+            {
+                model.Shape = null;
+            }
             List<Mouse> mice = await _mouse.GetMiceByPreference(model);
 
             return View(mice);
+        }
+        [Authorize]
+        public async Task<IActionResult> Favorite(int id)
+        {
+
+            var mouse = await _context.Mice.FindAsync(id);
+            if (mouse == null)
+            {
+                return NotFound();
+            }
+            return View(mouse);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost, ActionName("Favorite")]
+        [Authorize]
+        public async Task<IActionResult> PostFavorite(int id)
+        {
+            var mouseUser = await _userManager.GetUserAsync(User);
+            var mouse = _context.Mice.Include(m => m.userVote).Where(m => m.Id == id).First();
+                try
+                {
+                    mouse.userVote.Add(mouseUser);
+                    _context.Update(mouse);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MouseExists(mouse.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
         }
 
         // GET: Mice/Details/5

@@ -4,6 +4,7 @@ using MVCWebAPP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCWebAPP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220613221914_MigrationV4")]
+    partial class MigrationV4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,21 +159,6 @@ namespace MVCWebAPP.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("MouseMouseUser", b =>
-                {
-                    b.Property<int>("favoriteMiceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("userVoteId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("favoriteMiceId", "userVoteId");
-
-                    b.HasIndex("userVoteId");
-
-                    b.ToTable("MouseMouseUser");
                 });
 
             modelBuilder.Entity("MVCWebAPP.Models.Mouse", b =>
@@ -322,21 +309,6 @@ namespace MVCWebAPP.Migrations
                     b.HasOne("MVCWebAPP.Models.MouseUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MouseMouseUser", b =>
-                {
-                    b.HasOne("MVCWebAPP.Models.Mouse", null)
-                        .WithMany()
-                        .HasForeignKey("favoriteMiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MVCWebAPP.Models.MouseUser", null)
-                        .WithMany()
-                        .HasForeignKey("userVoteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

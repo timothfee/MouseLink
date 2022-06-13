@@ -12,8 +12,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Shape" class="control-label"></label>
-                <input asp-for="Shape" class="form-control" />
-                <span asp-validation-for="Shape" class="text-danger"></span>
+                <select asp-for="Shape" class="form-control" asp-items="ViewBag.Shape"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Weight" class="control-label">Max weight in grams</label>
@@ -26,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Size" class="control-label"></label>
-                <select asp-for="Size" class="form-control" asp-items="Html.GetEnumSelectList<MouseSize>()"><option value="">Select Size</option></select>
+                <select asp-for="Size" class="form-control" asp-items="Html.GetEnumSelectList<MouseSize>()"><option value="">Any Size</option></select>
                 <span asp-validation-for="Size" class="text-danger"></span>
             </div>
             <div class="form-group">

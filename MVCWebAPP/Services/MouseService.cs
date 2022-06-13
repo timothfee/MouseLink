@@ -40,7 +40,7 @@ namespace MVCWebAPP.Services
                     }
                 }
             }
-            mice = mice.OrderBy(m => m.Rank).ToList();
+            mice = mice.OrderBy(m => m.Rank == null).ThenBy(m => m.Rank).ToList();
             return mice;
         }
     }
