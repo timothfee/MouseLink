@@ -3,6 +3,7 @@ using MVCWebAPP.Data;
 using MVCWebAPP.Models;
 using MVCWebAPP.Services.Interfaces;
 
+//This code is how the website seperates the mice by the users preference.
 namespace MVCWebAPP.Services
 {
     public class MouseService : IMouseService
@@ -23,7 +24,7 @@ namespace MVCWebAPP.Services
         public async Task<List<Mouse>> GetMiceByPreference(MouseSearchViewModel model)
         {
             List<Mouse> mice = new List<Mouse>();
-            foreach (var m in _context.Mice)
+            foreach (var m in _context.Mice.Include(m => m.userVote))
             {
                 if (model.IsWireless == m.IsWireless || model.IsWireless == null)
                 {

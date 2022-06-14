@@ -1,10 +1,13 @@
-﻿@model IEnumerable<MVCWebAPP.Models.Mouse>
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<MVCWebAPP.Models.Mouse>
 
+@inject SignInManager<MouseUser> SignInManager
 
 @{
     ViewData["Title"] = "Index";
+    MouseUser? mouseUser = (MouseUser?) ViewData["mouseUserLoggedIn"];
 }
-
+@*This portion is the view model for the preferences search(after the user inputs information and searches).*@
 <h1 class="display-4">Results</h1>
 
 
@@ -33,6 +36,12 @@
             <th>
                 Purchase Link
             </th>
+            @if (SignInManager.IsSignedIn(User))
+            {
+            <th>
+                Favorite
+            </th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -73,6 +82,23 @@
                     <a href="@item.URL" target="_blank">Link</a>
                 }
             </td>
+            
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        var submit = "♡";
+                    if(item.userVote.Contains(mouseUser))
+                    {
+                        submit = "🤍";
+                    }
+                    <td>
+                        <form asp-action="Favorite" asp-route-id="@item.Id" method="post">
+                            <input type="hidden" name="Id" value="@item.Id"/>
+                            <input type="submit" value="@submit" class="btn text-light" /> 
+                        </form>
+                        </td>
+                    }
+               
+           
         </tr>
 }
     </tbody>

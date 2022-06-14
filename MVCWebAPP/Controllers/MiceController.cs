@@ -36,8 +36,13 @@ namespace MVCWebAPP.Controllers
             }
             List<Mouse> mice = await _mouse.GetMiceByPreference(model);
 
+            var mouseUser = await _userManager.GetUserAsync(User);
+            ViewData["mouseUserLoggedIn"] = mouseUser;
+
+
             return View(mice);
         }
+        //This portion of the code is the controller for the voting feature on the website.
         [Authorize]
         public async Task<IActionResult> Favorite(int id)
         {
@@ -49,7 +54,6 @@ namespace MVCWebAPP.Controllers
             }
             return View(mouse);
         }
-
         [ValidateAntiForgeryToken]
         [HttpPost, ActionName("Favorite")]
         [Authorize]
@@ -57,24 +61,32 @@ namespace MVCWebAPP.Controllers
         {
             var mouseUser = await _userManager.GetUserAsync(User);
             var mouse = _context.Mice.Include(m => m.userVote).Where(m => m.Id == id).First();
-                try
+            try
+            {
+                if (mouse.userVote.Contains(mouseUser))
+                {
+                    mouse.userVote.Remove(mouseUser);
+                }
+                else
                 {
                     mouse.userVote.Add(mouseUser);
-                    _context.Update(mouse);
-                    await _context.SaveChangesAsync();
+
                 }
-                catch (DbUpdateConcurrencyException)
+                _context.Update(mouse);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MouseExists(mouse.Id))
                 {
-                    if (!MouseExists(mouse.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Index));
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Mice/Details/5
@@ -200,14 +212,14 @@ namespace MVCWebAPP.Controllers
             {
                 _context.Mice.Remove(mouse);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MouseExists(int id)
         {
-          return (_context.Mice?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Mice?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
