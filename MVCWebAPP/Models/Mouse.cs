@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel;
-
+//This is the mouse class and what we use to construct the mouse as well as creat the UserVote for each mouse.
 namespace MVCWebAPP.Models
 {
     public class Mouse
