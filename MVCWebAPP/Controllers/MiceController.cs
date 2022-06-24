@@ -221,5 +221,7 @@ namespace MVCWebAPP.Controllers
         {
             return (_context.Mice?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
     }
 }

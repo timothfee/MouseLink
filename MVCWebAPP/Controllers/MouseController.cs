@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVCWebAPP.Data;
 using MVCWebAPP.Models;
@@ -9,15 +10,18 @@ namespace MVCWebAPP.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public MouseController(ApplicationDbContext context)
+        private readonly UserManager<MouseUser> _userManager;
+
+        public MouseController(ApplicationDbContext context, UserManager<MouseUser> userManager )
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
             List<Mouse> mice = new List<Mouse>();
-            foreach (var item in _context.Mice)
+            foreach (var item in _context.Mice.Include(m => m.userVote))
             {
                 if(item.Rank != null)
                 {
@@ -28,6 +32,22 @@ namespace MVCWebAPP.Controllers
             return View(sortedList);
 
             
+        }
+        public async Task<IActionResult> FavoriteMice(MouseSearchViewModel model)
+        {
+            List<Mouse> mice = new List<Mouse>();
+
+            foreach (var item in _context.Mice)
+            {
+                mice.Add(item);
+            }
+            string userId = _userManager.GetUserId(User);
+            var mouseUser = _context.Users.Include(m => m.favoriteMice).First(m => m.Id == userId);
+            ViewData["mouseUserLoggedIn"] = mouseUser;
+
+
+            
+            return View(mouseUser.favoriteMice.OrderBy(m => m.Rank));
         }
     }
 }
