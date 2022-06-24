@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<MouseUser> SignInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -27,11 +31,18 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a> 
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link text-light" asp-area="" asp-controller="Mouse" asp-action="Index">Mice Ranking</a>
+                           <a class="nav-link text-light" asp-area="" asp-controller="Mouse" asp-action="Index">Mice Ranking</a> 
                         </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Mouse" asp-action="FavoriteMice">Favorite Mice</a> 
+                            </li>
+                        }
+
                         
                             <partial name="_LoginPartial" />
                         

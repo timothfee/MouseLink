@@ -4,18 +4,13 @@
 @inject SignInManager<MouseUser> SignInManager
 
 @{
-    ViewData["Title"] = "MouseLink";
+    ViewData["Title"] = "Index";
     MouseUser? mouseUser = (MouseUser?) ViewData["mouseUserLoggedIn"];
 }
-<div class="text-center">
-    <h1 class="display-4">Mice Ranking</h1>
-    <p>The list of the current best gaming mice.</p>
-    </div>
+@*This portion is the view model for the preferences search(after the user inputs information and searches).*@
+<h1 class="display-4">Results</h1>
 
 
-  
-
-  
 <table class="table" style="color: whitesmoke;">
     <thead>
         <tr>
@@ -39,14 +34,16 @@
                 @Html.DisplayNameFor(model => model.Size)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.URL)
+                Purchase Link
             </th>
-            
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            @if(item.userVote.Contains(mouseUser))
+            {
+
              <td>
                 @Html.DisplayFor(modelItem => item.Rank)
             </td>
@@ -60,13 +57,20 @@
                 @Html.DisplayFor(modelItem => item.Weight)g
             </td>
             <td>
-                @if(item.IsWireless == true){<div>Yes</div>} else{<div>No</div>}
+                @if(item.IsWireless == true)
+                {
+                    <div>Yes</div>
+                } 
+                else
+                {
+                    <div>No</div>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Size)
             </td>
             <td>
-                  @if(string.IsNullOrWhiteSpace(item.URL))
+                @if(string.IsNullOrWhiteSpace(item.URL))
                 {
                     @:Unavailable
                 } 
@@ -75,7 +79,8 @@
                     <a href="@item.URL" target="_blank">Link</a>
                 }
             </td>
-            
+             }              
+           
         </tr>
 }
     </tbody>
